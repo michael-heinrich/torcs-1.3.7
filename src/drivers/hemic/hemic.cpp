@@ -417,7 +417,16 @@ drive(int index, tCarElt* car, tSituation *s)
     car->ctrl.gear = gear;
 
 
-    bool moves = speed > 1 || speedLim <= 5;
+    bool moves = true;
+
+    if(bot->hasLaunched)
+    {
+        moves = speed > 1;
+    }
+    else
+    {
+        moves = speed > 5;
+    }
 
     if (moves || throttling == 0)
     {
@@ -437,9 +446,9 @@ drive(int index, tCarElt* car, tSituation *s)
         car->ctrl.steer = -100 * angle / car->_steerLock;
 
         bot->remainingBackwardSteps--;
+        bot->hasLaunched = false;
     }
-
-    if (!bot->hasLaunched)
+    else if (!bot->hasLaunched)
     {
         car->ctrl.gear = 1;
         car->ctrl.accelCmd = .6;
@@ -574,7 +583,6 @@ endrace(int index, tCarElt *car, tSituation *s)
 static void
 shutdown(int index)
 {
-    std::cout << "shutdown called\n";
 
     std::ostringstream oss;
 
