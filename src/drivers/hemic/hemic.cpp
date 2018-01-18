@@ -37,8 +37,8 @@ void openPositionLog(tBot *bot);
 void writePositionLog(tBot *bot, float x, float y);
 void closePositionLog(tBot *bot);
 
-/* 
- * Module entry point  
+/*
+ * Module entry point
  */
 extern "C" int
 hemic(tModInfo *modInfo)
@@ -538,6 +538,7 @@ drive(int index, tCarElt* car, tSituation *s)
         if (closestOponent != NULL)
         {
             float diffX = 0, diffY = 0;
+
 
             diffX = car->pub.trkPos.toLeft - closestOponent->pub.trkPos.toLeft;
             diffY = car->race.distRaced - closestOponent->race.distRaced;
